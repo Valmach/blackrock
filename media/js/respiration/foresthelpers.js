@@ -1,3 +1,46 @@
+/* The only difference between the JS in leaf and leaf-temp is the calculateKelvin function,
+ * on takes arguments the other doesn't, forest also uses calculateKelvin, but it is the
+ * same as that for leaf. Should have one kinds of standard way of doing it or way of overriding the function*/
+    function calculateKelvin(elem, id) {
+        var k = id.split("-");
+        var kl = k[0] + "-kelvin";
+        var result = parseFloat(elem) + 273.15;
+        var kelvin = document.getElementById(kl);
+        if (isNaN(result)) {
+            kelvin.innerHTML = "";
+        }
+        else {
+            kelvin.innerHTML = result;
+        }
+    }
+    function calculateKelvin() {
+      var result = parseFloat($('base-temp').value) + 273.15;
+      if(isNaN(result)) {
+        $('kelvin').innerHTML = "";
+      } else {
+        $('kelvin').innerHTML = result;
+      } 
+    }
+
+
+    function calculateKelvin(elem, id) {
+        var temperature = elem;
+        var k = id.split("-");
+        var kl = k[0] + "-kelvin";
+        var result = parseFloat(elem) + 273.15;
+        var kelvin = document.getElementById(kl);
+        if(isNaN(result)) {
+              kelvin.innerHTML = "";
+        }
+        else {
+                 kelvin.innerHTML = result;
+        }
+    }
+
+
+    
+    
+    
 var stations = Array();
 var years = Array();
 
@@ -67,12 +110,14 @@ function submitForm() {
     }
     return false;
 }
-
+/* Replacing with Bootstrap so this is taken care of automatically and other people update/maintain it */
+/*
 function initNav() {
   connect("tab-leaf", "onclick", submitForm);
   forEach(getElementsByTagAndClassName("div", "toggler"), function(elem) {
           connect(elem, "onclick", toggle);
   });
 }
+*/
 
 

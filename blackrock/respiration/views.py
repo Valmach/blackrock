@@ -1,6 +1,10 @@
-from blackrock.blackrock_main.models import LastImportDate
-from blackrock.blackrock_main.solr import SolrUtilities
+import csv
+import datetime
+import time
+import urllib
 from decimal import Decimal, ROUND_HALF_UP
+from json import dumps
+from pysolr import Solr
 from django.conf import settings
 from django.contrib.auth.decorators import user_passes_test
 from django.core.cache import cache
@@ -9,14 +13,10 @@ from django.http import HttpResponse, HttpResponseRedirect, \
     HttpResponseForbidden
 from django.shortcuts import render_to_response
 from django.template import RequestContext
-from json import dumps
 from django.utils.tzinfo import FixedOffset
-from pysolr import Solr
+from blackrock.blackrock_main.models import LastImportDate
+from blackrock.blackrock_main.solr import SolrUtilities
 from blackrock.respiration.models import Temperature, StationMapping
-import csv
-import datetime
-import time
-import urllib
 
 
 def index(request, admin_msg=""):
@@ -26,6 +26,8 @@ def index(request, admin_msg=""):
 
 
 def leaf(request):
+    '''Can't we switch to nested json so it is easier
+    to read? Not saving any info'''
     scenario_options = {
         'name': 'Scenario 1',
         'leafarea': 1,
