@@ -14,8 +14,10 @@
 {% block js %} 
     <script type="text/javascript" src="/site_media/js/browserdetect.js"></script>
     <script type="text/javascript" src="/site_media/js/shield.js"></script>
+    <script type="text/javascript" src="/site_media/js/libraries/underscore-1.8.2.js"></script>
     <script type="text/javascript" src="/site_media/js/libraries/jquery-1.11.2.min.js"></script>
     <script type="text/javascript" src="/site_media/js/libraries/jquery-ui-1.11.4.min.js"></script>  
+    <script type="text/javascript" src="/site_media/js/libraries/backbone-1.1.2.js"></script>
     <!-- <script src="/site_media/js/bootstrap-3.2.0//bootstrap.min.js"></script> -->
     <script type="text/javascript" src="/site_media/js/mochikit/MochiKit/MochiKit.js"></script> 
     <script type="text/javascript" src="/site_media/js/mochikit/MochiKit/Signal.js"></script>   
@@ -122,8 +124,8 @@
         </div>
     
     {% block moduleheader %}
-	    <div id="respiration_content">
-	       	<div id="instructions">
+	    <div class="respiration_content">
+	       	<div class="instructions">
 	        	<strong>Instructions:</strong>
 	        	{% block instructions %}
 	        	{% endblock %}
@@ -132,30 +134,32 @@
 	    </div> <!-- end respiration content -->
     {% endblock %}  
     
-    <div id="container">
+    <div class="container">
         {% block modulecontainer %}
-    	<div id="left">
-    		<div id="leftfield">
-               {% block leftlegend %}
-                  LEFT LEGEND
-               {% endblock %}
+    	<div class="left">
+    		<div class="leftfield">
+          {% block leftlegend %}
+              LEFT LEGEND
+          {% endblock %}
                
-    		
-    		   {% block left %} 
+    		  {% block left %} 
     		      LEFT PANE 
-    		   {% endblock %} 
+    		  {% endblock %} 
     		</div>
     	</div>
     
-    	<div id="right">
-    	  <div id="rightfield">
+    	<div class="right">
+    	  <div class="rightfield">
             <h3>
-                {% block rightlegend %}
-        	    RIGHT LEGEND
+              {% block rightlegend %}
+        	        RIGHT LEGEND
         	    {% endblock %}
             </h3>
     	    {% block graph %} 
-    		  <div id="graph-cursor"><div id="unfreeze"></div></div>
+    		  <div id="graph-cursor">
+            <div id="unfreeze">
+            </div>
+          </div>
     		  <canvas id="graph" width="460" height="345"></canvas>
     	    {% endblock %} 
     	    {% block right %} 

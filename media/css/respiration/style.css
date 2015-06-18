@@ -3,7 +3,7 @@ body
 	font-family: "Lucida Grande", "Trebuchet MS", arial, helvetica, sans-serif !important; 
 }
 
-#respiration_content
+.respiration_content
 {
 	background-color: #fff;
 	margin: 0;
@@ -48,7 +48,7 @@ div#top-box
 	border: 1px solid red;
 }
 
-div#instructions
+div.instructions
 {
 	font-size: 12px;
 	line-height: 18px;
@@ -125,14 +125,14 @@ div#equation-inner
 	color: blue;
 }
 
-div#container
+div.container
 {
 	margin: 0px 30px;
 	position: relative;
 	min-width: 1000px;
 }
 
-div#left, div#right
+div.left, div.right
 {
     background-color: #ccc;
     background-image: url(/site_media/images/respiration/background_panel.jpg);
@@ -141,16 +141,16 @@ div#left, div#right
     margin-bottom: 25px;
 }
 
-div#left
+div.left
 {
 	min-width: 395px;
 	margin-right: 580px;
 	padding: 0px 10px 5px 10px;
 }
 
-div#left fieldset#leftfield { }
+div.left fieldset.leftfield { }
 
-div#right
+div.right
 {
 	position: absolute;
 	top: 0px;
@@ -194,7 +194,7 @@ legend
 	background-repeat: repeat-x;
 }
 
-#forestgraph
+.forestgraph
 {
 	padding: 10px 0px 10px 10px;
 	text-align: right;
@@ -397,24 +397,24 @@ input#plotGraph.needsupdate
 	width: 500px;
 }
 
-#graph-cursor
+.graph-cursor
 {
 	position: absolute;
 	width: 1px;
 	height: 270px;
 	/*canvas's height + border - label margin*/
 	top: 90px;
-	/*#right's padding + label margin*/
+	/*.right's padding + label margin*/
 	left: 0px;
 	background-color: #f00;
 	z-index: 9000;
 	display: none;
 	/*initial state*/
 	margin-left: 50px;
-	/*.bluff-wrapper margin-left + #rightfield padding-left*/
+	/*.bluff-wrapper margin-left + .rightfield padding-left*/
 }
 
-#graph-cursor #unfreeze
+.graph-cursor .unfreeze
 {
 	display: none;
 	height: 9px;
@@ -545,7 +545,7 @@ div#error
 	img.slider { display: none; }
 	#equation { display: none; }
 	#tab-bar { display: none; }
-	#forestgraph { display: none; }
+	.forestgraph { display: none; }
         .speciescontainer, .leafspeciescontainer, #scenariobox {
            max-height: 100%;
            overflow: visible;
@@ -560,7 +560,7 @@ div#error
 	}
 	
 	/* data */
-	div#left
+	div.left
 	{
 		page-break-before: always;
 		width: 50%;
@@ -568,7 +568,7 @@ div#error
 	}
 	
 	/* graph */
-	div#right
+	div.right
 	{
 		position: absolute;
 		left: 0px;

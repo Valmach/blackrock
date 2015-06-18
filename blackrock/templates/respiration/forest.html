@@ -9,7 +9,6 @@
     <script type="text/javascript" src="/site_media/js/respiration/forestgraph.js"></script>
     <script type="text/javascript">
 
-
     addLoadEvent(function() {
         {% for station in stations %}
             addYears("{{station}}", {{years|hash:station}});
@@ -35,9 +34,13 @@
 {% endblock %}
 
 {% block instructions %}
-  Explore how climate fluctuations and changes in species composition affect the respiration output of a forest using actual temperature data from Black Rock Forest. Enter the following scenario parameters into the fields below. Click on the Graph button to determine and view the total amount (moles) of carbon respired from a m<sup>2</sup> of forest for each of your scenarios. 
+  Explore how climate fluctuations and changes in species composition affect the respiration output 
+  of a forest using actual temperature data from Black Rock Forest. Enter the following scenario 
+  parameters into the fields below. Click on the Graph button to determine and view the total 
+  amount (moles) of carbon respired from a m<sup>2</sup> of forest for each of your scenarios. 
   <br /><br />
-  Advanced options include a forest leaf area index that takes into consideration the canopy layers of the forest as well as a delta function that modifies the temperature data points across the board.
+  Advanced options include a forest leaf area index that takes into consideration the canopy 
+  layers of the forest as well as a delta function that modifies the temperature data points across the board.
 {% endblock %}
 
 {% block leftlegend %}

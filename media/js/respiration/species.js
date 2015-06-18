@@ -1,4 +1,4 @@
-/* module wrapper pattern*/
+/* module wrapper pattern */
 (function() {
 
     //Currently Removes Duplicate Trees of Same Species - need to change that
@@ -95,6 +95,8 @@
         leafGraph();
       }
     }
+
+    /* Beginning of Graphing/UI */
 
     function EquationHighlighter() {
 
@@ -549,3 +551,15 @@
 
 
 })();
+/*
+var NewSpecies = {};
+
+NewSpecies.Book = function(title) {
+this.title = title;
+this.page = 1;
+};
+
+NewSpecies.Book.prototype.turnPage = function(direction) {
+this.page += direction;
+};
+*/
