@@ -6,23 +6,9 @@
    {{ block.super }}
     <script type="text/javascript" src="/site_media/js/respiration/foresthelpers.js"></script> 
     <script type="text/javascript" src="/site_media/js/respiration/scenario.js"></script> 
-    <script type="text/javascript" src="/site_media/js/respiration/species.js"></script>
     <script type="text/javascript" src="/site_media/js/respiration/forestgraph.js"></script>
     <script type="text/javascript">
 
-
-    function calculateKelvin(elem, id) {
-        var k = id.split("-");
-        var kl = k[0] + "-kelvin";
-        var result = parseFloat(elem) + 273.15;
-        var kelvin = document.getElementById(kl);
-        if (isNaN(result)) {
-            kelvin.innerHTML = "";
-        }
-        else {
-            kelvin.innerHTML = result;
-        }
-    }
 
     addLoadEvent(function() {
         {% for station in stations %}
