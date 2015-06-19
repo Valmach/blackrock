@@ -1,5 +1,3 @@
-
-
 /* Now the Collection Views */
 var BaseListView = Backbone.View.extend({
 
@@ -23,8 +21,6 @@ var BaseListView = Backbone.View.extend({
 });
 
 
-
-
 var Respiration = { 
 	Models: {}, 
 	Collections: {}, 
@@ -33,14 +29,14 @@ var Respiration = {
 
 
 Respiration.Models.Species = Backbone.Model.extend({
-/*	defaults: {
+	defaults: {
 		'id': "something",
         'label' : 'Select Your Tree Species',
         't0' : 0,
         'k' :  0,
         'r0' : 0,
         'e0' : 0
-    } */
+    }
 });
 
 Respiration.Collections.SpeciesCollection = Backbone.Collection.extend({
@@ -51,15 +47,19 @@ Respiration.Views.Species = Backbone.View.extend({
 
 	events: {
 	    'click .delete': 'remove',
-	    'click .scenario-species-row .name_info .dropdown-menu .species-predefined-choice': 'selectSpecies'
+	    'click .species-row .name_info .dropdown-menu .species-predefined-choice': 'selectSpecies'
 	  },
 	
 	initialize: function(options){
-		_.bindAll(this, 'render', 'insert', 'remove');
+		_.bindAll(this, 'render', 'insert', 'remove', 'selectSpecies');
+		this.model.on('change', this.render);
 		this.template = _.template(jQuery("#leaf-species-template").html());
 		if (options && 'container' in options) {
 			this.container = options.container;
 			this.insert();
+		}
+		if (options && 'predefinedList' in options) {
+			this.predefinedList = options.predefinedList;
 		}
 	},
 
@@ -95,28 +95,32 @@ Respiration.Views.SpeciesCollection = BaseListView.extend({
     	
         _.bindAll(this, 'renderCollection', 'addItem');
         this.options = options;
-    	console.log(options);
         this.collection = new Respiration.Collections.SpeciesCollection();
         this.collection.on('reset', this.renderCollection);
         this.collection.on('add', this.addItem);
         this.item_view = Respiration.Views.Species;
-        //this.collection.addItem(new Respiration.Models.Species());
     }
 });
 
 Respiration.Views.RespirationTable = Backbone.View.extend({
     
-    // events: {
-    //	'click .addSpecies': 'addSpecies'
-    //},
+    events: {
+    	'click .addSpecies': 'addSpecies'
+    },
     
     initialize: function (options) {
-        //_.bindAll(this,
-        //          'addSpecies');
+        _.bindAll(this,
+                  'addSpecies');
         this.options = options;
         this.species_list_view = new Respiration.Views.SpeciesCollection({
             el: jQuery('.leafspeciescontainer')
-        });//{el: this.options.listEl})//.render();
+        });
+        //{el: this.options.listEl})//.render();
+    },
+
+    addSpecies: function(event) {
+    	console.log("Inside addSpecies");
+    	this.species_list_view.collection.add([new Respiration.Models.Species()]);
     }
 });
 //el: leaf-graph-info
@@ -126,10 +130,11 @@ Respiration.Views.RespirationTable = Backbone.View.extend({
 
 jQuery(function(){
 	
-	var predefinedSpecies = new Respiration.Collections.SpeciesCollection();
+	// We want this list to be globally accessible
+	Respiration.PredefinedSpecies = new Respiration.Collections.SpeciesCollection();
 
 	/* Add some predefined species */
-	predefinedSpecies.add([
+	Respiration.PredefinedSpecies.add([
 	    new Respiration.Models.Species({   
 	        'id': "quercus_rubra",
 	        'label' : 'Quercus rubra',
@@ -235,7 +240,8 @@ jQuery(function(){
             'e0' : 54267.7
         })
     ]);
-	
+
+    console.log(Respiration.PredefinedSpecies);
 	
 	var testModel = new Respiration.Models.Species({   
         'id': "unique_id",
@@ -279,7 +285,7 @@ jQuery(function(){
             'e0' : 54267.7
     })]);
 
+     testCollectionView.species_list_view.collection.add([new Respiration.Models.Species()]);
 
-	
 	
 });
