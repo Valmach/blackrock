@@ -33,7 +33,7 @@ function updateColors() {
   });
 }
 
-
+/* For temperature slider */
 LeafGraphData.prototype.updateFields = function() {
     var min = ($('temp_low')) ? Math.round($('temp_low').value * 100) / 100 : 0;
     var max = ($('temp_high')) ? Math.round($('temp_high').value * 100) / 100 : 30;
@@ -61,7 +61,7 @@ LeafGraphData.prototype.updateFields = function() {
     return true;
 };
 
-
+// Go over each model and get info
 LeafGraphData.prototype.arrhenius = function(species_id, t_a) {
     var data = this.species[species_id];
 

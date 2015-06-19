@@ -24,8 +24,28 @@ var BaseListView = Backbone.View.extend({
 var Respiration = { 
 	Models: {}, 
 	Collections: {}, 
-	Views:{}
+	Views: {},
+	Functions: {}
 };
+
+/* Should it be part of the species model? */
+Respiration.Functions.Arrhenius = function (R0, E0, Rg, basetemp, Ta) {
+    var inner = ( (1/basetemp) - (1/Ta));
+    var right = (E0 / Rg) * inner;
+    var Rval = R0 * Math.exp(right);
+    return Math.round(Rval*1000)/1000;
+}
+
+
+Respiration.Models.LeafGraphData = Backbone.Model.extend({
+	defaults: {
+	    'Rg': 8.314,
+        'Ta_min': 0,
+        'Ta_max': 30
+    }
+});
+
+Respiration.Models.GraphData = new Respiration.Models.LeafGraphData();
 
 
 Respiration.Models.Species = Backbone.Model.extend({
@@ -36,11 +56,45 @@ Respiration.Models.Species = Backbone.Model.extend({
         'k' :  0,
         'r0' : 0,
         'e0' : 0
+    },
+
+    get_arrhenius_range: function(Rg, Ta_min, Ta_max){
+    	/* We need to get the arrhenius value for each value in the temperature range */
+    	var temp_data = [];
+    	var Ta_min = Ta_min;
+    	var Ta_max = Ta_max;
+    	var Rg = parseInt(Rg, 10);
+
+    	var count;
+
+    	for(count=Ta_min; count < Ta_max; count++){
+    	    var inner = ( (1/this.get('t0')) - (1/count));
+            var right = (this.get('e0') / Rg) * inner;
+            var Rval = this.get('r0') * Math.exp(right);
+            var val = Math.round(Rval*1000)/1000;
+            temp_data.push(val);
+        }
+
+        return temp_data;
     }
 });
 
+
 Respiration.Collections.SpeciesCollection = Backbone.Collection.extend({
 	model: Respiration.Models.Species,
+
+    prepareSeries: function(event) {
+    	/* For now going to use set max/min values - will add slider later */
+    	var series_data = [];
+
+    	this.forEach(function(model) {
+            series_data.push({
+            	name: model.get('label'),
+                data: model.get_arrhenius_range(Respiration.Models.GraphData.get('Rg'), Respiration.Models.GraphData.get('Ta_min'), Respiration.Models.GraphData.get('Ta_max'))
+            });
+        });
+        return series_data;
+    }
 });
 
 Respiration.Views.Species = Backbone.View.extend({
@@ -100,6 +154,7 @@ Respiration.Views.SpeciesCollection = BaseListView.extend({
         this.collection.on('add', this.addItem);
         this.item_view = Respiration.Views.Species;
     }
+
 });
 
 Respiration.Views.RespirationTable = Backbone.View.extend({
@@ -115,16 +170,12 @@ Respiration.Views.RespirationTable = Backbone.View.extend({
         this.species_list_view = new Respiration.Views.SpeciesCollection({
             el: jQuery('.leafspeciescontainer')
         });
-        //{el: this.options.listEl})//.render();
     },
 
     addSpecies: function(event) {
-    	console.log("Inside addSpecies");
     	this.species_list_view.collection.add([new Respiration.Models.Species()]);
     }
 });
-//el: leaf-graph-info
-
 
 
 
@@ -285,7 +336,10 @@ jQuery(function(){
             'e0' : 54267.7
     })]);
 
-     testCollectionView.species_list_view.collection.add([new Respiration.Models.Species()]);
+     //testCollectionView.species_list_view.collection.add([new Respiration.Models.Species()]);
+     //console.log(testCollectionView.species_list_view.collection.toJSON());
+     var x = Respiration.PredefinedSpecies.prepareSeries();
+     console.log(x);
 
 	
 });
