@@ -1,0 +1,281 @@
+   <script type="text/template" id="leaf-species-template">
+     <div class="species species-row">
+     <div class="name_info">
+       <input type="text" size="30" 
+        name="<% if(label) { %> <%= label %><% } 
+        else {  %>Species Name Here...<%  } %>" value="<% if(label) { %> <%= label %><% } else {  %>Species Name Here...<%  } %>" />
+       <div class="btn-group">
+             <button type="button" class="btn btn-success btn-xs pull-right dropdown-toggle selectSpecies" data-toggle="dropdown" aria-expanded="false">
+               Select Species<span class="caret"></span>
+             </button>
+             <ul class="dropdown-menu" role="menu">
+               <li class="species-predefined-choice" data-id="acer_rubrum" name="Acer rubrum"><a href="#">Acer rubrum</a></li>
+                 <li class="species-predefined-choice" data-id="berberis_thumbergii" name="Berberis thumbergii"><a href="#">Berberis thumbergii</a></li>
+                 <li class="species-predefined-choice" data-id="betula_lenta" name="Betula lenta"><a href="#">Betula lenta</a></li>
+                 <li class="species-predefined-choice" data-id="betula_papyrifera" name="Betula papyrifera"><a href="#">Betula papyrifera</a></li>
+                 <li class="species-predefined-choice" data-id="carya_glabra" name="Carya glabra"><a href="#">Carya glabra</a></li>
+                 <li class="species-predefined-choice" data-id="kalmia_latifolia" name="Kalmia latifolia"><a href="#">Kalmia latifolia</a></li>
+                 <li class="species-predefined-choice" data-id="liriodendron_tulipifera" name="Liriodendron tulipifera"><a href="#">Liriodendron tulipifera</a></li>
+                 <li class="species-predefined-choice" data-id="platanus_occidentalis" name="Platanus occidentalis"><a href="#">Platanus occidentalis</a></li>
+                 <li class="species-predefined-choice" data-id="populus_tremuloides" name="Populus tremuloides"><a href="#">Populus tremuloides</a></li>
+                 <li class="species-predefined-choice" data-id="populus_grandidentata" name="Populus grandidentata"><a href="#">Populus grandidentata</a></li>
+                 <li class="species-predefined-choice" data-id="quercus_prinus" name="Quercus prinus"><a href="#">Quercus prinus</a></li>
+               <li class="species-predefined-choice" data-id="quercus_rubra" name="Quercus rubra"><a href="#">Quercus rubra</a></li>
+               <li class="species-predefined-choice" data-id="vaccinium_corymbosum" name="Vaccinium corymbosum"><a href="#">Vaccinium corymbosum</a></li>
+             </ul>
+      </div>
+    </div>
+    <table style="margin-left:50px;width: 87%;">
+     <tr>
+     <td>Base Temperature:</td><td>T <sub> 0 </sub>  = 
+       <input type="text" size="5" id="-base-temp" name="-base-temp" class="base-temp"
+       value="<% if(t0) { %> <%= t0 %><% } 
+         else {  %> <%  } %>"  />
+     &deg;C = <span id="kelvin"> 273.15 </span>  K 
+         &deg;C = <span id="kelvin_k"> <% if(k) { %> <%= k %><% } else {  %> <%  } %> </span>  K
+          
+       </td>
+     </tr>
+     <tr>
+       <td>
+         Respiration Rate<br/>      @ base temperature
+       </td>
+       <td>
+     R<sub>0 </sub>= <input type="text" size="5" id="-R0" name="-R0" class="r-zero arr-field" 
+        value="<% if(r0) { %> <%= r0 %><% } 
+        else {  %> <%  } %>" />
+     umol&nbsp;m<sup>-2</sup>s<sup>-1</sup>
+     </td>
+   </tr>
+   <tr>
+     <td>
+       Energy of Activation <br />@ base temperature
+       </td>
+     <td>
+       E<sub>0 </sub> = <input type="text" size="5" id="-E0" name="-E0" class="e-zero arr-field"
+        value="<% if(e0) { %> <%= e0 %><% } 
+        else {  %> <%  } %>" />
+     J mol<sup>-1</sup>
+     </td>
+   </tr>
+   </table>
+     </div>
+   </script>
+
+
+
+   <script type="text/template" id="scenario-template">
+       <div class="scenario-row">
+         <div class="scenario-title">
+           <h4 style="display: inline;">Scenario Row Template</h4>
+           <button type="button" class="btn btn-danger btn-xs pull-right deleteScenario" style="display: inline;">Delete Scenario </button>
+           <div class="colorswatch" id="scenario-swatch" style="display: inline;">&nbsp;&nbsp;&nbsp;&nbsp;
+         </div>
+         <input type="text" class="scenario-name" name="<% if(scenarioName) { %> <%= scenarioName %><% } else {  %>Scenario-Name<%  } %>" value="<% if(scenarioName) { %> <%= scenarioName %><% } else {  %>Scenario-Name<%  } %>" />
+       </div><!-- End Scenario Title -->
+       <div class="species-table">
+         <div class="species-table-header" style="margin-bottom: 2em;">
+           <div class="btn-group pull-right">
+             <button type="button" class="btn btn-success btn-xs pull-right dropdown-toggle addSpecies" data-toggle="dropdown" aria-expanded="false">
+               Add Species<span class="caret"></span>
+             </button>
+             <ul class="dropdown-menu" role="menu">
+               <li class="species-predefined-choice" data-id="acer_rubrum" name="Acer rubrum"><a href="#">Acer rubrum</a></li>
+                 <li class="species-predefined-choice" data-id="berberis_thumbergii" name="Berberis thumbergii"><a href="#">Berberis thumbergii</a></li>
+                 <li class="species-predefined-choice" data-id="betula_lenta" name="Betula lenta"><a href="#">Betula lenta</a></li>
+                 <li class="species-predefined-choice" data-id="betula_papyrifera" name="Betula papyrifera"><a href="#">Betula papyrifera</a></li>
+                 <li class="species-predefined-choice" data-id="carya_glabra" name="Carya glabra"><a href="#">Carya glabra</a></li>
+                 <li class="species-predefined-choice" data-id="kalmia_latifolia" name="Kalmia latifolia"><a href="#">Kalmia latifolia</a></li>
+                 <li class="species-predefined-choice" data-id="liriodendron_tulipifera" name="Liriodendron tulipifera"><a href="#">Liriodendron tulipifera</a></li>
+                 <li class="species-predefined-choice" data-id="platanus_occidentalis" name="Platanus occidentalis"><a href="#">Platanus occidentalis</a></li>
+                 <li class="species-predefined-choice" data-id="populus_tremuloides" name="Populus tremuloides"><a href="#">Populus tremuloides</a></li>
+                 <li class="species-predefined-choice" data-id="populus_grandidentata" name="Populus grandidentata"><a href="#">Populus grandidentata</a></li>
+                 <li class="species-predefined-choice" data-id="quercus_prinus" name="Quercus prinus"><a href="#">Quercus prinus</a></li>
+               <li class="species-predefined-choice" data-id="quercus_rubra" name="Quercus rubra"><a href="#">Quercus rubra</a></li>
+               <li class="species-predefined-choice" data-id="vaccinium_corymbosum" name="Vaccinium corymbosum"><a href="#">Vaccinium corymbosum</a></li>
+             </ul>
+           </div><!-- End Button Group Div -->
+           </div><!-- End Species Table Header -->
+
+           <!-- Table Contains Rows of Species for a given Scenario -->
+           <div class="species-table-body">
+             <table style="margin-left:50px;width: 87%;" class="species-row-container">
+             <!-- Each Species Should Be Added as a Series of Table Row - 2 per tree -->
+             </table>
+           </div><!-- End Species Table Area -->
+         </div><!-- End Inner Species Box -->
+       </div><!-- End Scenario Row Div -->
+   </script>
+
+
+
+
+
+   <script type="text/template" id="canopy-species-template">
+     <div class="canopy-species-row">
+     <div class="name_info">
+       <input type="text" size="30" 
+        name="<% if(label) { %> <%= label %><% } 
+        else {  %>Species Name Here...<%  } %>" value="<% if(label) { %> <%= label %><% } else {  %>Species Name Here...<%  } %>" />
+       <div class="btn-group">
+	           <button type="button" class="btn btn-success btn-xs pull-right dropdown-toggle addSpecies" data-toggle="dropdown" aria-expanded="false">
+	             Select Species<span class="caret"></span>
+	           </button>
+	           <ul class="dropdown-menu" role="menu">
+        	     <li class="species-predefined-choice" data-id="acer_rubrum" name="Acer rubrum"><a href="#">Acer rubrum</a></li>
+                 <li class="species-predefined-choice" data-id="berberis_thumbergii" name="Berberis thumbergii"><a href="#">Berberis thumbergii</a></li>
+                 <li class="species-predefined-choice" data-id="betula_lenta" name="Betula lenta"><a href="#">Betula lenta</a></li>
+                 <li class="species-predefined-choice" data-id="betula_papyrifera" name="Betula papyrifera"><a href="#">Betula papyrifera</a></li>
+                 <li class="species-predefined-choice" data-id="carya_glabra" name="Carya glabra"><a href="#">Carya glabra</a></li>
+                 <li class="species-predefined-choice" data-id="kalmia_latifolia" name="Kalmia latifolia"><a href="#">Kalmia latifolia</a></li>
+                 <li class="species-predefined-choice" data-id="liriodendron_tulipifera" name="Liriodendron tulipifera"><a href="#">Liriodendron tulipifera</a></li>
+                 <li class="species-predefined-choice" data-id="platanus_occidentalis" name="Platanus occidentalis"><a href="#">Platanus occidentalis</a></li>
+                 <li class="species-predefined-choice" data-id="populus_tremuloides" name="Populus tremuloides"><a href="#">Populus tremuloides</a></li>
+                 <li class="species-predefined-choice" data-id="populus_grandidentata" name="Populus grandidentata"><a href="#">Populus grandidentata</a></li>
+                 <li class="species-predefined-choice" data-id="quercus_prinus" name="Quercus prinus"><a href="#">Quercus prinus</a></li>
+	             <li class="species-predefined-choice" data-id="quercus_rubra" name="Quercus rubra"><a href="#">Quercus rubra</a></li>
+	             <li class="species-predefined-choice" data-id="vaccinium_corymbosum" name="Vaccinium corymbosum"><a href="#">Vaccinium corymbosum</a></li>
+	           </ul>
+      </div>
+    </div>
+     <tr>
+<a href="#" class="tooltip">SC=<span>Species Composition</span></a>
+	          <input id="species1-percent" name="species1-percent" type="text" size="5" /> %
+	      
+	          <table cellspacing="0" class="temptable">
+              <tr>
+                <td>
+                  <a href="#" class="tooltip">Base Temperature:</a>
+	              T <sub> 0 </sub>  =
+                  <!--good default is 15 -->
+                  <input type="text" size="5" id="species1-base-temp" name="species1-base-temp" class="t-zero arr-field"
+                    value="<% if(t0) { %> <%= t0 %><% } 
+                    else {  %> <%  } %>"
+                     />
+                    &deg;C =
+                  <span id="species1-kelvin"  name="species1-kelvin" class="k-zero"> 273.15 </span>  K
+                  <% if(k) { %> <%= k %><% } else {  %> <%  } %>
+                </td>
+                <td>
+                  <a href="#" class="tooltip">R<sub>0</sub>=<span>Respiration Rate @ base temperature</span></a>
+                  <input type="text" size="5" id="species1-R0" name="species1-R0" class="r-zero arr-field" value="<% if(r0) { %> <%= r0 %><% } 
+        else {  %> <%  } %>"/>
+	               umol&nbsp;m<sup>-2</sup>s<sup>-1</sup>
+                </td>
+                <td>
+	               &nbsp;&nbsp;&nbsp;
+                </td>
+                <td>
+                  <a href="#" class="tooltip">E<sub>0</sub>=<span>Energy of Activation @ base temperature</span></a>
+                  <input type="text" size="5" id="species1-E0" name="species1-E0" class="e-zero arr-field" value="<% if(e0) { %> <%= e0 %><% } 
+        else {  %> <%  } %>"/>
+	               J mol<sup>-1</sup>
+                </td>
+              </tr>
+     </div>
+   </script>
+
+   <script type="text/template" id="old-leaf-species-template">
+     <div class="scenario-species-row">
+     <div class="name_info">
+       
+       <input type="text" size="30" 
+        name="<% if(label) { %> <%= label %><% } 
+        else {  %>Species Name Here...<%  } %>" value="<% if(label) { %> <%= label %><% } else {  %>Species Name Here...<%  } %>" />
+       <div class="btn-group">
+	           <button type="button" class="btn btn-success btn-xs pull-right dropdown-toggle addSpecies" data-toggle="dropdown" aria-expanded="false">
+	             Select Species<span class="caret"></span>
+	           </button>
+	           <ul class="dropdown-menu" role="menu">
+        	     <li class="species-predefined-choice" data-id="acer_rubrum" name="Acer rubrum"><a href="#">Acer rubrum</a></li>
+                 <li class="species-predefined-choice" data-id="berberis_thumbergii" name="Berberis thumbergii"><a href="#">Berberis thumbergii</a></li>
+                 <li class="species-predefined-choice" data-id="betula_lenta" name="Betula lenta"><a href="#">Betula lenta</a></li>
+                 <li class="species-predefined-choice" data-id="betula_papyrifera" name="Betula papyrifera"><a href="#">Betula papyrifera</a></li>
+                 <li class="species-predefined-choice" data-id="carya_glabra" name="Carya glabra"><a href="#">Carya glabra</a></li>
+                 <li class="species-predefined-choice" data-id="kalmia_latifolia" name="Kalmia latifolia"><a href="#">Kalmia latifolia</a></li>
+                 <li class="species-predefined-choice" data-id="liriodendron_tulipifera" name="Liriodendron tulipifera"><a href="#">Liriodendron tulipifera</a></li>
+                 <li class="species-predefined-choice" data-id="platanus_occidentalis" name="Platanus occidentalis"><a href="#">Platanus occidentalis</a></li>
+                 <li class="species-predefined-choice" data-id="populus_tremuloides" name="Populus tremuloides"><a href="#">Populus tremuloides</a></li>
+                 <li class="species-predefined-choice" data-id="populus_grandidentata" name="Populus grandidentata"><a href="#">Populus grandidentata</a></li>
+                 <li class="species-predefined-choice" data-id="quercus_prinus" name="Quercus prinus"><a href="#">Quercus prinus</a></li>
+	             <li class="species-predefined-choice" data-id="quercus_rubra" name="Quercus rubra"><a href="#">Quercus rubra</a></li>
+	             <li class="species-predefined-choice" data-id="vaccinium_corymbosum" name="Vaccinium corymbosum"><a href="#">Vaccinium corymbosum</a></li>
+	           </ul>
+      </div>
+    </div>
+     <tr>
+	   <td>Base Temperature:</td><td>T <sub> 0 </sub>  = 
+	     <input type="text" size="5" id="-base-temp" name="-base-temp" class="base-temp"
+	     value="<% if(t0) { %> <%= t0 %><% } 
+         else {  %> <%  } %>"  />
+		 &deg;C = <span id="kelvin"> 273.15 </span>  K 
+         &deg;C = <span id="kelvin_k"> <% if(k) { %> <%= k %><% } else {  %> <%  } %> </span>  K
+          
+       </td>
+     </tr>
+     <tr>
+       <td>
+         Respiration Rate<br/>	    @ base temperature
+       </td>
+       <td>
+		 R<sub>0 </sub>= <input type="text" size="5" id="-R0" name="-R0" class="r-zero arr-field" 
+        value="<% if(r0) { %> <%= r0 %><% } 
+        else {  %> <%  } %>" />
+		 umol&nbsp;m<sup>-2</sup>s<sup>-1</sup>
+	   </td>
+	 </tr>
+	 <tr>
+	   <td>
+	     Energy of Activation <br />@ base temperature
+       </td>
+	   <td>
+	     E<sub>0 </sub>	= <input type="text" size="5" id="-E0" name="-E0" class="e-zero arr-field"
+        value="<% if(e0) { %> <%= e0 %><% } 
+        else {  %> <%  } %>" />
+		 J mol<sup>-1</sup>
+	   </td>
+	 </tr>
+     </div>
+   </script>
+   <script type="text/template" id="scenario-template">
+       <div class="scenario-row">
+         <div class="scenario-title">
+           <h4 style="display: inline;">Scenario Row Template</h4>
+           <button type="button" class="btn btn-danger btn-xs pull-right deleteScenario" style="display: inline;">Delete Scenario </button>
+           <div class="colorswatch" id="scenario-swatch" style="display: inline;">&nbsp;&nbsp;&nbsp;&nbsp;
+	       </div>
+	       <input type="text" class="scenario-name" name="<% if(scenarioName) { %> <%= scenarioName %><% } else {  %>Scenario-Name<%  } %>" value="<% if(scenarioName) { %> <%= scenarioName %><% } else {  %>Scenario-Name<%  } %>" />
+	     </div><!-- End Scenario Title -->
+	     <div class="species-table">
+	       <div class="species-table-header" style="margin-bottom: 2em;">
+	         <div class="btn-group pull-right">
+	           <button type="button" class="btn btn-success btn-xs pull-right dropdown-toggle addSpecies" data-toggle="dropdown" aria-expanded="false">
+	             Add Species<span class="caret"></span>
+	           </button>
+	           <ul class="dropdown-menu" role="menu">
+        	     <li class="species-predefined-choice" data-id="acer_rubrum" name="Acer rubrum"><a href="#">Acer rubrum</a></li>
+                 <li class="species-predefined-choice" data-id="berberis_thumbergii" name="Berberis thumbergii"><a href="#">Berberis thumbergii</a></li>
+                 <li class="species-predefined-choice" data-id="betula_lenta" name="Betula lenta"><a href="#">Betula lenta</a></li>
+                 <li class="species-predefined-choice" data-id="betula_papyrifera" name="Betula papyrifera"><a href="#">Betula papyrifera</a></li>
+                 <li class="species-predefined-choice" data-id="carya_glabra" name="Carya glabra"><a href="#">Carya glabra</a></li>
+                 <li class="species-predefined-choice" data-id="kalmia_latifolia" name="Kalmia latifolia"><a href="#">Kalmia latifolia</a></li>
+                 <li class="species-predefined-choice" data-id="liriodendron_tulipifera" name="Liriodendron tulipifera"><a href="#">Liriodendron tulipifera</a></li>
+                 <li class="species-predefined-choice" data-id="platanus_occidentalis" name="Platanus occidentalis"><a href="#">Platanus occidentalis</a></li>
+                 <li class="species-predefined-choice" data-id="populus_tremuloides" name="Populus tremuloides"><a href="#">Populus tremuloides</a></li>
+                 <li class="species-predefined-choice" data-id="populus_grandidentata" name="Populus grandidentata"><a href="#">Populus grandidentata</a></li>
+                 <li class="species-predefined-choice" data-id="quercus_prinus" name="Quercus prinus"><a href="#">Quercus prinus</a></li>
+	             <li class="species-predefined-choice" data-id="quercus_rubra" name="Quercus rubra"><a href="#">Quercus rubra</a></li>
+	             <li class="species-predefined-choice" data-id="vaccinium_corymbosum" name="Vaccinium corymbosum"><a href="#">Vaccinium corymbosum</a></li>
+	           </ul>
+	         </div><!-- End Button Group Div -->
+           </div><!-- End Species Table Header -->
+
+           <!-- Table Contains Rows of Species for a given Scenario -->
+           <div class="species-table-body">
+             <table style="margin-left:50px;width: 87%;" class="species-row-container">
+             <!-- Each Species Should Be Added as a Series of Table Row - 2 per tree -->
+             </table>
+           </div><!-- End Species Table Area -->
+         </div><!-- End Inner Species Box -->
+       </div><!-- End Scenario Row Div -->
+   </script>
