@@ -551,15 +551,3 @@
 
 
 })();
-/*
-var NewSpecies = {};
-
-NewSpecies.Book = function(title) {
-this.title = title;
-this.page = 1;
-};
-
-NewSpecies.Book.prototype.turnPage = function(direction) {
-this.page += direction;
-};
-*/

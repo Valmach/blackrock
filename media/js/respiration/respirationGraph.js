@@ -1,16 +1,22 @@
 jQuery(function () {
 
     jQuery('#leaf-graph-area').highcharts({
+        chart: {
+            zoomType: 'xy'
+        },
         title: {
             text: 'Respiration Rate Graph',
             x: -20 //center
         },
         xAxis: {
+            tickInterval: 5,
             title: {
                 text: "Ambient Temperature (Ta)",
-            },
-            categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-                'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+            }
+            ,
+            plotLines: [{
+                value: 0,
+             }]
         },
         yAxis: {
             title: {
@@ -31,6 +37,10 @@ jQuery(function () {
             verticalAlign: 'middle',
             borderWidth: 0
         },
-        series: Respiration.PredefinedSpecies.prepareSeries()
+        series: testCollectionView.species_list_view.collection.prepareSeries()
+        //Respiration.PredefinedSpecies.prepareSeries()
     });
+
+        //testCollectionView.species_list_view.collection.on('add', this.addItem);
+        //testCollectionView.species_list_view.collection.on('change', this.addItem);
 });
