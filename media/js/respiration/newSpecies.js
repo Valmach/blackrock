@@ -1,24 +1,5 @@
 jQuery(function(){
 	
-	/* Need to update so we can pass all initialization info here */
-    testCollectionView = new Respiration.Views.RespirationTable({ 
-    	el: jQuery('.speciesbox')
-    }).render();
-
-
-    testCollectionView.species_list_view.collection.add([new Respiration.Models.Species({   
-        	'id': "betula_lenta",
-            'label' : 'Betula lenta',
-            't0' : 10,
-            'k' :  283.15,
-            'r0' : 0.162,
-            'e0' : 54267.7
-    })]);
-
-    //testCollectionView.species_list_view.collection.add([new Respiration.Models.Species()]);
-    //console.log(testCollectionView.species_list_view.collection);
-
-    
     leafGraphOptions = {
         chart: {
 		    renderTo: 'leaf-graph-area',
@@ -56,17 +37,22 @@ jQuery(function(){
             align: 'right',
             verticalAlign: 'middle',
             borderWidth: 0
-        }//,
-        //series: testCollectionView.species_list_view.collection.prepareSeries()
+        }
     }
+
+
+    /* Need to update so we can pass all initialization info here */
+    /* Set up view for leaf graph and add a defualt species to the list */
+    testCollectionView = new Respiration.Views.RespirationTable({ 
+        el: jQuery('.leaf-graph-info')
+    }).render();
+
+    testCollectionView.species_list_view.collection.add([new Respiration.Models.Species()]);
+
+    /* We need to check that species information has been entered that can be graphed */
     respirationGraph = new Highcharts.Chart(leafGraphOptions);
-    //console.log("Passed respirationGraph");
 
 
-    //console.log("testCollectionView.species_list_view.collection.size()");
-    //console.log(testCollectionView.species_list_view.collection.size());
-
-    //if (testCollectionView.isGraphable()){console.log("colletion is graphable");}
     var collection_length = testCollectionView.species_list_view.collection.size();
     for(var j=0; j < collection_length; j++)
     {
