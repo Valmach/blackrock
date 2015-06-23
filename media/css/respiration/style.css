@@ -17,14 +17,14 @@ body
     margin: 0;
 }
 
-div#tab-bar
+ul.tab-bar
 {
 	position: absolute;
 	right: 0;
 	top: 112px;
 }
 
-div.tab
+li.tab
 {
     background-color: #DCD3C2;
 	color: black;
@@ -36,7 +36,7 @@ div.tab
 	cursor: pointer;
 }
 
-div.tab-selected
+li.tab-selected
 {
 	background-color: white;
 	border-bottom: 3px white solid;
@@ -201,7 +201,7 @@ legend
 	margin-top: -18px;
 }
 
-#scenarioheader, .speciesheader,.advancedoptionsheader
+.scenarioheader, .speciesheader,.advancedoptionsheader
 {
 	padding: 10px;
 	font-weight: bold;
@@ -209,13 +209,13 @@ legend
 	font-size: 11px;
 }
 
-#scenarioheader
+.scenarioheader
 {
 	background-color: #666;
 	color: white;
 }
 
-#scenariobox
+.scenariobox
 {
 /**	overflow: auto;
 	max-height: 320px; **/
@@ -546,12 +546,12 @@ div#error
 	#equation { display: none; }
 	#tab-bar { display: none; }
 	.forestgraph { display: none; }
-        .speciescontainer, .leafspeciescontainer, #scenariobox {
+        .speciescontainer, .leafspeciescontainer, .scenariobox {
            max-height: 100%;
            overflow: visible;
         }
 	.scenario { padding-bottom: 50px; }
-	#scenarioheader { display: none; }
+	.scenarioheader { display: none; }
 	
 	.scenariotitle
 	{

@@ -22,9 +22,6 @@
     <script type="text/javascript" src="/site_media/js/bootstrap-3.2.0/bootstrap.min.js"></script>
     <script type="text/javascript" src="/site_media/js/libraries/highcharts-4.1.6/js/highcharts.js"></script>
     <script type="text/javascript" src="/site_media/js/libraries/highcharts-4.1.6/js/modules/exporting.js"></script>
-    <!-- <script type="text/javascript" src="/site_media/js/mochikit/MochiKit/MochiKit.js"></script>  -->
-    <!-- <script type="text/javascript" src="/site_media/js/mochikit/MochiKit/Signal.js"></script>    -->
-    <!-- <script type="text/javascript" src="/site_media/js/mochikit/MochiKit/DragAndDrop.js"></script> -->
     <script type="text/javascript" src="/site_media/js/libraries/jquery.sharing/jquery.sharing.js"></script>
     <script type="text/javascript" src="/site_media/js/libraries/sharing.js"></script>
     <script type="text/javascript" src="/site_media/js/bluff/js-class.js"></script> 
@@ -32,12 +29,13 @@
     <script type="text/javascript" src="/site_media/js/bluff/bluff-src.js"></script>
     <script type="text/javascript" src="/site_media/js/respiration/baseList.js"></script>
     <script type="text/javascript" src="/site_media/js/respiration/baseLeafApp.js"></script>
-    <script type="text/javascript" src="/site_media/js/respiration/JS06-23-2015.js"></script>
-    <!-- <script type="text/javascript" src="/site_media/js/respiration/leafAppModels.js"></script> -->
-    <!-- <script type="text/javascript" src="/site_media/js/respiration/leafAppCollections.js"></script> -->
-    <!-- <script type="text/javascript" src="/site_media/js/respiration/leafAppViews.js"></script> -->
+    <script type="text/javascript" src="/site_media/js/respiration/respirationFuntions.js"></script>
+    <script type="text/javascript" src="/site_media/js/respiration/leafAppModels.js"></script>
+    <script type="text/javascript" src="/site_media/js/respiration/leafAppCollections.js"></script>
+    <script type="text/javascript" src="/site_media/js/respiration/leafAppViews.js"></script>
     <script type="text/javascript" src="/site_media/js/respiration/predefinedSpecies.js"></script>
     <script type="text/javascript" src="/site_media/js/respiration/newSpecies.js"></script>
+    <script type="text/javascript" src="/site_media/js/respiration/newScenario.js"></script>
     <!-- <script type="text/javascript" src="/site_media/js/respiration/respirationGraph.js"></script> -->
     <!-- <script type="text/javascript" src="/site_media/js/respiration/graph.js"></script> -->
     <!-- <script type="text/javascript" src="/site_media/js/respiration/species.js"></script> -->
@@ -46,37 +44,11 @@
     <!-- <script type="text/javascript" src="/site_media/js/respiration/forestgraph.js"></script> -->
 
   
-<!-- Forest -->
-
-    <script type="text/javascript">
-    console.log("Inside forest javascript");
-    addLoadEvent(function() {
-        {% for station in stations %}
-            addYears("{{station}}", {{years|hash:station}});
-        {% endfor %}
-        initNav(); // foresthelpers.js
-        initYearHelper(); // foresthelpers.js
-        initSpeciesModule(); // species.js
-        initScenarioModule(); // scenario.js
-        setupForest();      
-      });
-       console.log("End of forest javascript");
-    makeExportLink = function(a) {
-      var id = a.id;
-      id = id.split('-')[0];
-      var year = document.getElementById(id+'-year').value;
-      var start = document.getElementById(id+'-startdate').value;
-      var end = document.getElementById(id+'-enddate').value;
-      var station = document.getElementById(id+'-fieldstation').value;
-      a.href = "/respiration/getcsv?year="+year+"&start="+start+"&end="+end+"&station="+station;
-    };    
-  </script>
 
 {% endblock %} 
 
 {% block masthead %} 
-<a href="/respiration/" title="Return to 'Tree Respiration' home">Tree Respiration</a>
-
+  <a href="/respiration/" title="Return to 'Tree Respiration' home">Tree Respiration</a>
 {% endblock %} 
 
 
@@ -96,18 +68,18 @@
         </div>
     -->
 
-    <ul class="nav nav-tabs" role="tablist">
-      <li role="presentation" class="active">
+    <ul class="nav nav-tabs tab-bar" role="tablist">
+      <li role="presentation" class="tab active">
         <a href="#leaf-level" aria-controls="leaf-level" data-toggle="tab">
           Leaf Level
         </a>
       </li>
-      <li role="presentation">
+      <li role="presentation" class="tab">
         <a href="#canopy-level" aria-controls="canopy-level" data-toggle="tab">
           Canopy Level
         </a>
       </li>
-      <li role="presentation">
+      <li role="presentation" class="tab">
         <a href="#teaching-resources" aria-controls="teaching-resources" data-toggle="tab">
           Teaching Resources
         </a>

@@ -61,12 +61,14 @@ Respiration.Views.SpeciesCollection = BaseListView.extend({
 Respiration.Views.RespirationTable = Backbone.View.extend({
     
     events: {
-    	'click .addSpecies': 'addSpecies'
+    	'click .addSpecies': 'addSpecies',
+    	'click .delSpecies': 'delSpecies'
     },
     
     initialize: function (options) {
         _.bindAll(this,
-                  'addSpecies');
+                  'addSpecies',
+                  'isGraphable');
         this.options = options;
         this.species_list_view = new Respiration.Views.SpeciesCollection({
             el: jQuery('.leafspeciescontainer')
@@ -75,5 +77,13 @@ Respiration.Views.RespirationTable = Backbone.View.extend({
 
     addSpecies: function(event) {
     	this.species_list_view.collection.add([new Respiration.Models.Species()]);
+    },
+
+    delSpecies: function(event) {
+    	//this.species_list_view.collection.add([new Respiration.Models.Species()]);
+    },
+
+    isGraphable: function() {
+        this.species_list_view.collection.each(function(model){ model.validate();});
     }
 });

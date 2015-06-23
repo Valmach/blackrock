@@ -1,9 +1,9 @@
-    Respiration.Functions.Arrhenius = function (R0, E0, Rg, T0, Ta) {
-        var inner = ( (1/T0) - (1/Ta));
-        var right = (E0 / Rg) * inner;
-        var Rval = R0 * Math.exp(right);
-        return Math.round(Rval*1000)/1000;
-    }
+Respiration.Functions.Arrhenius = function (R0, E0, Rg, T0, Ta) {
+    var inner = ( (1/T0) - (1/Ta));
+    var right = (E0 / Rg) * inner;
+    var Rval = R0 * Math.exp(right);
+    return Math.round(Rval*1000)/1000;
+}
 
 
 Respiration.Models.Species = Backbone.Model.extend({
@@ -14,8 +14,35 @@ Respiration.Models.Species = Backbone.Model.extend({
         'k' :  0,
         'r0' : 0,
         'e0' : 0
+    },
+
+    validate: function (attrs) {
+    	/* First make sure they fields are not empty*/
+        if (!attrs.label) {
+            return 'Please label you tree species.';
+        }
+        if (!attrs.t0) {
+            return 'Please fill in the base temperature.';
+        }
+        if (!attrs.r0) {
+            return 'Please fill in the respiration rate at the base temperature.';
+        }
+        if (!attrs.e0) {
+            return 'Please fill in the energy of activation at the base temperature.';
+        }
+        /* Now make sure that fields which should be numbers are */
+        if (parseInt(attrs.t0) === NaN) {
+            return 'Please enter a number for the base temperature.';
+        }
+        if (parseInt(attrs.r0) === NaN) {
+            return 'Please enter a number for the respiration rate at the base temperature.';
+        }
+        if (parseInt(attrs.e0) === NaN) {
+            return 'Please enter a number for the energy of activation at the base temperature.';
+        }
     }
 });
+
 
 Respiration.Models.LeafGraphData = Backbone.Model.extend({
 	defaults: {

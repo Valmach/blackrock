@@ -60,13 +60,13 @@ jQuery(function(){
         //series: testCollectionView.species_list_view.collection.prepareSeries()
     }
     respirationGraph = new Highcharts.Chart(leafGraphOptions);
-    console.log("Passed respirationGraph");
+    //console.log("Passed respirationGraph");
 
 
-    console.log("testCollectionView.species_list_view.collection.size()");
-    console.log(testCollectionView.species_list_view.collection.size());
+    //console.log("testCollectionView.species_list_view.collection.size()");
+    //console.log(testCollectionView.species_list_view.collection.size());
 
-    
+    //if (testCollectionView.isGraphable()){console.log("colletion is graphable");}
     var collection_length = testCollectionView.species_list_view.collection.size();
     for(var j=0; j < collection_length; j++)
     {
@@ -75,7 +75,7 @@ jQuery(function(){
 
         var i=Respiration.Models.GraphData.get('Ta_min');
         var max_i = Respiration.Models.GraphData.get('Ta_max');
-        
+
         for(i; i < max_i; i++)
         {
             newdata.push(Respiration.Models.GraphData.graphArrhenius(testCollectionView.species_list_view.collection.models[j], i));
@@ -86,7 +86,12 @@ jQuery(function(){
             name: testCollectionView.species_list_view.collection.models[j].get('label'),
             data: newdata
         });
-   }
+    }
 
+
+    Respiration.TestScenarioView = new Respiration.Views.Scenario({ 
+        model: new Respiration.Models.Scenario({}), 
+        el: jQuery('.scenariobox')
+    }).render();
 
 });
