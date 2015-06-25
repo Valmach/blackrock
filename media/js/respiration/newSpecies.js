@@ -48,31 +48,36 @@ jQuery(function(){
     }).render();
 
     testCollectionView.species_list_view.collection.add([new Respiration.Models.Species()]);
-
+    //console.log(testCollectionView.species_list_view.collection.models[0].isGraphable());
     /* We need to check that species information has been entered that can be graphed */
     respirationGraph = new Highcharts.Chart(leafGraphOptions);
 
+    // draw the graph every time the collections changes
+    testCollectionView.species_list_view.collection.on('change', function(){
 
-    var collection_length = testCollectionView.species_list_view.collection.size();
-    for(var j=0; j < collection_length; j++)
-    {
-    	/* For each value in temperature range */
-        var newdata = [];
+        respirationGraph = new Highcharts.Chart(leafGraphOptions);
 
-        var i=Respiration.Models.GraphData.get('Ta_min');
-        var max_i = Respiration.Models.GraphData.get('Ta_max');
+        var collection_length = testCollectionView.species_list_view.collection.size();
 
-        for(i; i < max_i; i++)
+        for(var j=0; j < collection_length; j++)
         {
-            newdata.push(Respiration.Models.GraphData.graphArrhenius(testCollectionView.species_list_view.collection.models[j], i));
-        }
-        console.log(newdata);
+        	/* For each value in temperature range */
+            var newdata = [];
 
-        respirationGraph.addSeries({
-            name: testCollectionView.species_list_view.collection.models[j].get('label'),
-            data: newdata
-        });
-    }
+            var i=Respiration.Models.GraphData.get('Ta_min');
+            var max_i = Respiration.Models.GraphData.get('Ta_max');
+
+            for(i; i < max_i; i++)
+            {
+                newdata.push(Respiration.Models.GraphData.graphArrhenius(testCollectionView.species_list_view.collection.models[j], i));
+            }
+
+            respirationGraph.addSeries({
+                name: testCollectionView.species_list_view.collection.models[j].get('label'),
+                data: newdata
+            });
+        }
+    });
 
 
     Respiration.TestScenarioView = new Respiration.Views.Scenario({ 

@@ -5,8 +5,8 @@
         name="<% if(label) { %> <%= label %><% } 
         else {  %>Species Name Here...<%  } %>" value="<% if(label) { %> <%= label %><% } else {  %>Species Name Here...<%  } %>" />
        <div class="btn-group">
-             <button type="button" class="btn btn-success btn-xs pull-right dropdown-toggle selectSpecies" data-toggle="dropdown" aria-expanded="false">
-               Select Species<span class="caret"></span>
+             <button type="button" class="btn btn-default btn-xs pull-right dropdown-toggle selectSpecies" data-toggle="dropdown" aria-expanded="false">
+               <span class="caret"></span>
              </button>
              <ul class="dropdown-menu" role="menu">
                <li class="species-predefined-choice" data-id="acer_rubrum" name="Acer rubrum"><a href="#">Acer rubrum</a></li>
@@ -24,6 +24,9 @@
                <li class="species-predefined-choice" data-id="vaccinium_corymbosum" name="Vaccinium corymbosum"><a href="#">Vaccinium corymbosum</a></li>
              </ul>
       </div>
+      <button type="button" class="btn btn-danger btn-xs pull-right delSpecies">
+        Delete Species
+      </button>
     </div>
     <table style="margin-left:50px;width: 87%;">
      <tr>
@@ -31,9 +34,8 @@
        <input type="text" size="5" id="-base-temp" name="-base-temp" class="base-temp"
        value="<% if(t0) { %> <%= t0 %><% } 
          else {  %> <%  } %>"  />
-     &deg;C = <span id="kelvin"> 273.15 </span>  K 
-         &deg;C = <span id="kelvin_k"> <% if(k) { %> <%= k %><% } else {  %> <%  } %> </span>  K
-          
+     &deg;C = <span id="kelvin"> 283.15 </span>  K 
+        <span id="kelvin_k"> <% if(k) { %> <%= k %><% } else {  %> <%  } %> </span>  
        </td>
      </tr>
      <tr>
