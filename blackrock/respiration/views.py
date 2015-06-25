@@ -27,6 +27,25 @@ def index(request, admin_msg=""):
 
 
 def leaf(request):
+    stations = Temperature.objects.values(
+        'station').order_by('station').distinct()
+    station_names = [item['station'] for item in stations]
+    year_options = {}
+    station_years = {}
+    for station in station_names:
+        years = [item.year for item in Temperature.objects.filter(
+            station=station).dates('date', 'year')]
+        year_options[station] = str(years)
+    print year_options
+    for station in station_names:
+        years = [item.year for item in Temperature.objects.filter(
+            station=station).dates('date', 'year')]
+        print "years"
+        print years
+        station_years[station] = {u'years': str(years)}
+    print "station_years"
+    print station_years
+
     scenario_options = {
         'name': 'Scenario 1',
         'leafarea': 1,
@@ -65,7 +84,10 @@ def leaf(request):
             myspecies.append(species)
 
     return render_to_response(
-        'respiration/leaf.html', {'numspecies': len(myspecies),
+        'respiration/leaf.html', {'stations': station_names,
+                                  'station_years' : station_years,
+                                  'years': year_options,
+                                  'numspecies': len(myspecies),
                                   'specieslist': myspecies,
                                   'scenario_options': scenario_options})
 

@@ -1,3 +1,6 @@
+/* Defining a general scenario view, this is an empty scenario,
+probably not the first scenario, the first scenario data should be 
+obtained from the leaf graph assuming there is leaf graph data */
 Respiration.Views.Scenario = Backbone.View.extend({
 
     events: {
@@ -7,11 +10,11 @@ Respiration.Views.Scenario = Backbone.View.extend({
       },
     
     initialize: function(options){
-        _.bindAll(this, 'render', 'remove');
+        _.bindAll(this, 'render', 'remove', 'addSpecies', 'isGraphable');
         this.template = _.template(jQuery("#scenario-template").html());
-        //this.firstScenario = new Respiration.Views.SpeciesCollection({
-        //    el: jQuery('.leafspeciescontainer')
-        //});//Respiration.Models.Scenario
+        this.species_list_view = new Respiration.Views.SpeciesCollection({
+            el: jQuery('.speciescontainer')
+        });
     },
     
     render: function() { 
@@ -20,6 +23,7 @@ Respiration.Views.Scenario = Backbone.View.extend({
         var num_of_species = 0;
         // = this.model.get('numSpecies');
         if(num_of_species > 0) {
+            console.log(this.model.attributes);
             // remove current species rows
             var species_container = this.$('.species-table-body .species-row-container').empty();
             this.model.speciesList.each(function(species) { 
@@ -29,6 +33,7 @@ Respiration.Views.Scenario = Backbone.View.extend({
             });
         }
         else {
+            console.log(this.model.attributes);
             //if there are no species we must create a default one
             this.$el.html(this.template(this.model.attributes));
             var species_container = this.$('.species-table-body .species-row-container').empty();
@@ -45,6 +50,10 @@ Respiration.Views.Scenario = Backbone.View.extend({
             
             return this;
         }
+    },
+
+    addSpecies: function(event) {
+        this.species_list_view.collection.add([new Respiration.Models.Species()]);
     },
     
     insert: function(){
@@ -64,6 +73,10 @@ Respiration.Views.Scenario = Backbone.View.extend({
         this.$('.species-table-body').append(
             new Respiration.Views.Species({ model: cpy_tree, container: species_container  }).render()); 
         return this;
+    },
+
+    isGraphable: function() {
+        this.species_list_view.collection.each(function(model){ model.validate();});
     }
     
 });

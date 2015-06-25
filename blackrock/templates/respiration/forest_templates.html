@@ -36,7 +36,9 @@
                       <td>
                         Field Station:
                         <select id="scenario1-fieldstation" name="scenario1-fieldstation" class="fieldstation-select">
-                          <option value="">{{station}}</option>
+                          {% for station in stations %}
+                             <option value="{{station}}">{{station}}</option>
+                          {% endfor %}
                         </select>
                       </td>
                       <td>
