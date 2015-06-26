@@ -139,12 +139,11 @@ Respiration.Views.Scenario = Backbone.View.extend({
 
     events: {
         'click .scenario-row .deleteScenario': 'remove',
-        /* Do we want to leave functionality as is? Where it adds a row and then user selects species or what? */
-         'click .species-table-header .dropdown-menu .species-predefined-choice': 'addSpeciesRow'
+        'click .species-table-header .dropdown-menu .species-predefined-choice': 'addSpeciesRow'
       },
     
     initialize: function(options){
-        _.bindAll(this, 'render', 'remove', 'addSpecies', 'isGraphable');
+        _.bindAll(this, 'render', 'remove', 'addSpecies');
         this.template = _.template(jQuery("#scenario-template").html());
         this.species_list_view = new Respiration.Views.ForestSpeciesCollection({
             el: jQuery('.speciescontainer')
@@ -152,22 +151,29 @@ Respiration.Views.Scenario = Backbone.View.extend({
     },
     
     render: function() { 
-        console.log("inside render");
+        console.log("inside scenario render");
+        //console.log("this.model scenario");
+        //console.log(this.model);
+        //console.log("this.species_list_view.collection.length scenario");
+        //console.log(this.species_list_view.collection.length);
         /* If the model has species render those inner rows */
-        var num_of_species = 0;
-        // = this.model.get('numSpecies');
-        if(num_of_species > 0) {
+        if(this.species_list_view.collection.length > 0) {
+            console.log("inside if");
             console.log(this.model.attributes);
             // remove current species rows
             var species_container = this.$('.species-table-body .species-row-container').empty();
-            this.model.speciesList.each(function(species) { 
+            this.species_list_view.collection.each(function(species) { 
                 new Respiration.Views.ForestSpecies(
                     { model: species, container: species_container }
                     ).render(); 
             });
         }
         else {
-            console.log(this.model.attributes);
+            console.log("inside else");
+            //console.log(this.model.attributes);
+            console.log("this.$el.html(this.model.attributes))");
+            console.log(this.$el.html(this.model.attributes));
+            //if there is nothing in the collection add a default so the template is rendered
             //if there are no species we must create a default one
             this.$el.html(this.template(this.model.attributes));
             var species_container = this.$('.species-table-body .species-row-container').empty();
@@ -207,12 +213,7 @@ Respiration.Views.Scenario = Backbone.View.extend({
         this.$('.species-table-body').append(
             new Respiration.Views.Species({ model: cpy_tree, container: species_container  }).render()); 
         return this;
-    },
-
-    isGraphable: function() {
-        this.species_list_view.collection.each(function(model){ model.validate();});
     }
-    
 });
 
 
