@@ -10,22 +10,12 @@
       </div>
 
       <h3>Set Scenario Variables</h3>
-               <div>
-               {% for station in stations %}
-                 {{ station }}
-                 
-               {% endfor %}
-               </div>
-               <div>
-               {% for stationyear in station_years %}
-                 {{ value|dictsort:"years" }}
-                 {{ stationyear.years }}
-                 {% endfor %}
-               {% for year in years %}
-                 {{ year }}
-                 {{ value|dictsort:"years" }}
-               {% endfor %}
-               </div>
+
+        <div>
+          {% for nest in nested_years %}
+            {{ nest.station }}{{ nest.years }} </ br>
+          {% endfor %}
+        </div>
       <!-- {u'Fire Tower': '[2007, 2008]', u'Open Lowland': '[1996, 2002, 2005, 2008, 2009]', u'Ridgetop': '[1996, 2002, 2008, 2009]'} -->
       <!-- <div id="error">Some errors occurred while graphing.  You might want to double-check the boxes highlighted in red.</div> --> 
 

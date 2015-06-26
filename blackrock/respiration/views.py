@@ -32,10 +32,16 @@ def leaf(request):
     station_names = [item['station'] for item in stations]
     year_options = {}
     station_years = {}
+    nested_years = {}
+    for station in station_names:
+        years = [item.year for item in Temperature.objects.filter(
+            station=station).dates('date', 'year')]
+        nested_years[station] = {'years': str(years), 'name': str(station)}
     for station in station_names:
         years = [item.year for item in Temperature.objects.filter(
             station=station).dates('date', 'year')]
         year_options[station] = str(years)
+    print "year_options"
     print year_options
     for station in station_names:
         years = [item.year for item in Temperature.objects.filter(
@@ -85,6 +91,7 @@ def leaf(request):
 
     return render_to_response(
         'respiration/leaf.html', {'stations': station_names,
+                                  'nested_years': nested_years,
                                   'station_years' : station_years,
                                   'years': year_options,
                                   'numspecies': len(myspecies),
