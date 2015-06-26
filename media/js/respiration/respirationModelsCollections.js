@@ -84,3 +84,7 @@ Respiration.Models.Scenario = Backbone.Model.extend({
     }
     
 });
+
+Respiration.Collections.ScenarioCollection = Backbone.Collection.extend({
+    model: Respiration.Models.Scenario,
+});

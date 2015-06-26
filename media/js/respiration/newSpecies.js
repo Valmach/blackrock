@@ -9,12 +9,12 @@ jQuery(function(){
 
     /* If user has put information in the leaf graph get that information
     and use it to populate the first scenario area */
-    //ScenarioView = new Respiration.Views.Scenario({ 
-    //   model: new Respiration.Models.Scenario({
-    //        speciesList: new Respiration.Collections.SpeciesCollection(LeafCollectionView.species_list_view.collection.toJSON())
-    //    }), 
-    //    el: jQuery('.scenariobox')
-    //}).render();
+    ScenarioView = new Respiration.Views.Scenario({ 
+       model: new Respiration.Models.Scenario({
+            speciesList: new Respiration.Collections.SpeciesCollection(LeafCollectionView.species_list_view.collection.toJSON())
+        }), 
+        el: jQuery('.forest-graph-info')
+    }).render();
 
 
     // Set up graphs by passing options
