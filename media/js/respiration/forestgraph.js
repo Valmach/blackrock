@@ -3,28 +3,24 @@ function ForestGraphData() {
     this.species = {};
     this.colors = ['#ff1f81', '#a21764', '#8ab438', '#999999', '#3a5b87', '#00c0c7', '#c070f0', '#ff8000', '#00ff00'];
     /* adding things here to experiment */
-    this.showError;
-    this.clearError;
-    this.errorHighlight;
-    this.clearHighlight;
+    this.showError = function() { setStyle("error", {'display':'block'}); };
+    
+    this.clearError= function clearError() { setStyle("error", {'display':'none'}); };
+    
+    this.errorHighlight = function (elem) {
+    	  addElementClass(elem, "errorHighlight");
+    	  connect(elem, "onfocus", clearHighlight);
+    	  this.showError();
+    };
+
+    this.clearHighlight = function (e) {
+    	  removeElementClass(e.src(), "errorHighlight");
+    };
 
 }
 
 var ForestData = new ForestGraphData();
 
-function showError() { setStyle("error", {'display':'block'}); }
-
-function clearError() { setStyle("error", {'display':'none'}); }
-
-function errorHighlight(elem) {
-  addElementClass(elem, "errorHighlight");
-  connect(elem, "onfocus", clearHighlight);
-  showError();
-}
-
-function clearHighlight(e) {
-  removeElementClass(e.src(), "errorHighlight");
-}
 
 function isLeapYear(year) {
   if(year % 4 === 0) {
@@ -85,7 +81,7 @@ ForestGraphData.prototype.updateScenario = function(scenario_id) {
 
     var leafarea = $(scenario_id + "-leafarea").value;
     if(leafarea === "" || isNaN(leafarea)) {
-      errorHighlight(scenario_id + "-leafarea");
+    	ForestData.errorHighlight(scenario_id + "-leafarea");
       leafarea = 1;
     }
     this.scenarios[scenario_id].leafarea = leafarea;
@@ -102,13 +98,13 @@ ForestGraphData.prototype.updateScenario = function(scenario_id) {
     var dateError = false;
     var leapyear = isLeapYear(year);
     if(! isValidMMDD(start, leapyear)) {
-      errorHighlight(scenario_id + "-startdate");
+    	ForestData.errorHighlight(scenario_id + "-startdate");
       dateError = true;
     }
     this.scenarios[scenario_id].start = start + "/" + year;
 
     if(! isValidMMDD(end, leapyear)) {
-      errorHighlight(scenario_id + "-enddate");
+    	ForestData.errorHighlight(scenario_id + "-enddate");
       this.scenarios[scenario_id].valid = false;
       dateError = true;
     }
@@ -118,7 +114,7 @@ ForestGraphData.prototype.updateScenario = function(scenario_id) {
     this.scenarios[scenario_id].deltaT = $(scenario_id + "-delta-t").value;
     if(this.scenarios[scenario_id].deltaT === "" || isNaN(this.scenarios[scenario_id].deltaT)) {
       // NaN still does indicates an error, since the user tried to enter something
-      if(isNaN(this.scenarios[scenario_id].deltaT)) { errorHighlight(scenario_id + "-delta-t"); }
+      if(isNaN(this.scenarios[scenario_id].deltaT)) { ForestData.errorHighlight(scenario_id + "-delta-t"); }
       // but either way, we use 0 for it
       this.scenarios[scenario_id].deltaT = 0;
     }
@@ -164,7 +160,7 @@ ForestGraphData.prototype.updateSpecies = function(species_id) {
 };
 
 function updateColors() {
-  clearError();
+	ForestData.clearError();
   forEach(getElementsByTagAndClassName('div', 'scenario'), function(scenario) {
     ForestData.updateScenario(scenario.id);
   });
@@ -172,7 +168,7 @@ function updateColors() {
 
 // overrides function in graph.js
 function initForestGraph() {
-  clearError();
+	ForestData.clearError();
   var g = new Bluff.Bar('graph', "460x345");
   g.set_theme({
       ///note: not used since we do this in leafGraph() now.
