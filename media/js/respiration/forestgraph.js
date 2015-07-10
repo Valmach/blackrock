@@ -2,7 +2,7 @@ function ForestGraphData() {
     this.scenarios = {};
     this.species = {};
     this.colors = ['#ff1f81', '#a21764', '#8ab438', '#999999', '#3a5b87', '#00c0c7', '#c070f0', '#ff8000', '#00ff00'];
-    /* adding things here to experiment */
+    
     this.showError = function() { setStyle("error", {'display':'block'}); };
     
     this.clearError= function clearError() { setStyle("error", {'display':'none'}); };
@@ -16,52 +16,56 @@ function ForestGraphData() {
     this.clearHighlight = function (e) {
     	  removeElementClass(e.src(), "errorHighlight");
     };
+    
+    this.isLeapYear = function (year) {
+    	  if(year % 4 === 0) {
+    		    if(year % 100 === 0) {
+    		      if(year % 400 === 0) {
+    		        return true;
+    		      }
+    		      return false;
+    		    }
+    		    return true;
+    		  }
+    		  return false;
+    };
+    
+    this.isValidMMDD = function (str, leapyear) {
+    	  var bits = str.split(/[/,-]/);
+    	  if(bits.length != 2) { return false; }
+    	  var month = bits[0];
+    	  var day = bits[1];
+    	  if(month === "" || day === "") {
+    	    return false;
+    	  }
+    	  if(isNaN(month) || isNaN(day)) {
+    	    return false;
+    	  }
+    	  if(month < 1 || month > 12) {
+    	    return false;
+    	  }
+    	  var maxday = 31;
+    	  if(month in {4:'', 6:'', 9:'', 11:''}) {
+    	     maxday = 30;
+    	  }
+    	  if(month === 2) {
+    	    maxday = 28;   // need to check for leapyears
+    	    if(leapyear) { maxday = 29; }
+    	  }
+    	  if(day < 0 || day > maxday) {
+    	    return false;
+    	  }
+    	  return true;
+    }
 
 }
 
 var ForestData = new ForestGraphData();
 
 
-function isLeapYear(year) {
-  if(year % 4 === 0) {
-    if(year % 100 === 0) {
-      if(year % 400 === 0) {
-        return true;
-      }
-      return false;
-    }
-    return true;
-  }
-  return false;
-}
 
-function isValidMMDD(str, leapyear) {
-  var bits = str.split(/[/,-]/);
-  if(bits.length != 2) { return false; }
-  var month = bits[0];
-  var day = bits[1];
-  if(month === "" || day === "") {
-    return false;
-  }
-  if(isNaN(month) || isNaN(day)) {
-    return false;
-  }
-  if(month < 1 || month > 12) {
-    return false;
-  }
-  var maxday = 31;
-  if(month in {4:'', 6:'', 9:'', 11:''}) {
-     maxday = 30;
-  }
-  if(month === 2) {
-    maxday = 28;   // need to check for leapyears
-    if(leapyear) { maxday = 29; }
-  }
-  if(day < 0 || day > maxday) {
-    return false;
-  }
-  return true;
-}
+
+
 
 ForestGraphData.prototype.updateScenario = function(scenario_id) {
     var obj = this;
@@ -293,9 +297,6 @@ function calculateKelvin(elem, id) {
     kelvin.innerHTML = result;
   }
 }
-
-
-
 
 
 makeExportLink = function(a) {
